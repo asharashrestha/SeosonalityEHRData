@@ -27,7 +27,7 @@ new_df["CLM_MONTH_DATE"] = new_df["CLM_ADMSN_YEAR"].map(str) + new_df["CLM_ADMSN
 
 # print(new_df.head())
 
-df_cp  = new_df.loc[new_df['CCS_CATEGORY_DESCRIPTION'] == 'Chest pain']
+# df_cp  = new_df.loc[new_df['CCS_CATEGORY_DESCRIPTION'] == 'Chest pain']
 # print(df_cp.head())
 
 # final_df = new_df.groupby('CLM_MONTH_DATE', as_index=False)[['DESYNPUF_ID']].count()
@@ -38,23 +38,24 @@ df_cp  = new_df.loc[new_df['CCS_CATEGORY_DESCRIPTION'] == 'Chest pain']
 
 count_df = new_df.groupby('CLM_MONTH_DATE', as_index=False)[['DESYNPUF_ID']].count()
 # count_df = new_df.rename(columns={'DESYNPUF_ID': 'No. of Patients'})
+
+print(count_df)
+
+
+# count_df['DESYNPUF_ID'] = count_df['DESYNPUF_ID'].apply(lambda x: x/1000) #multiply whole column by 1000.
+# count_df = count_df.rename(columns={'DESYNPUF_ID': 'Rate per 1000'})
 #
-
-
-count_df['DESYNPUF_ID'] = count_df['DESYNPUF_ID'].apply(lambda x: x/1000) #multiply whole column by 1000.
-count_df = count_df.rename(columns={'DESYNPUF_ID': 'Rate per 1000'})
-
-print(count_df.head())
-
-
-count_df.plot(x="CLM_MONTH_DATE", y=["Rate per 1000"], kind="line", color = 'c')
-# test = count_df.sort_values(['DESYNPUF_ID'], ascending=[False]) #sort descending
-# test = count_df.sort_values('DESYNPUF_ID', ascending=False)
-# print(test.head())
-
-#Oth low resp comes in number one with record of 4154. CHEST PAIN COMES IN NUMBER 2 with record of 3492 pneumonia in 3rd with 2494
-
-# print("TOP 10 Only")
+# print(count_df.head())
 #
-plt.show()
+#
+# count_df.plot(x="CLM_MONTH_DATE", y=["Rate per 1000"], kind="line", color = 'c')
+# # test = count_df.sort_values(['DESYNPUF_ID'], ascending=[False]) #sort descending
+# # test = count_df.sort_values('DESYNPUF_ID', ascending=False)
+# # print(test.head())
+#
+# #Oth low resp comes in number one with record of 4154. CHEST PAIN COMES IN NUMBER 2 with record of 3492 pneumonia in 3rd with 2494
+#
+# # print("TOP 10 Only")
+# #
+# plt.show()
 
