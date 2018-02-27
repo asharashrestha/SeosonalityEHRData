@@ -3,11 +3,17 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import datetime
+import concurrent.futures
+
 
 print(datetime.datetime.now())
 
 #for test data
-df = pd.read_csv('/Users/aashara/Documents/Study/Research Credit/Seasonal_Trends/Test_Data/DE1_0_2008_to_2010_Inpatient_Claims_Sample_7.csv',dtype ='str')
+df = pd.read_csv('DE1_0_2008_to_2010_Inpatient_Claims_Sample_7.csv',dtype ='str')
+
+df= df[:3000]
+df.to_csv('out_test.csv', sep=',')
+
 
 df_selected_cols = df[['DESYNPUF_ID', 'CLM_ADMSN_DT', 'ADMTNG_ICD9_DGNS_CD', 'ICD9_DGNS_CD_1']].copy()
 ccn = pd.read_csv('/Users/aashara/Documents/Study/Research Credit/Seasonal_Trends/icd_ccs.csv',dtype ='str')#ccn data import
@@ -23,7 +29,8 @@ joined_df = joined_df.rename(columns={'CCS_CATEGORY': 'ADMTNG_ICD9_DGNS_CD'})
  #Joining With ICD9_DGNS_CD_1
 joined_df = pd.merge(joined_df, ccn, left_on='ICD9_DGNS_CD_1', right_on='ICD9_Code')
 
-#dropping unwanted columns:
+#dropping unwanted columns:out_train
+
 columns = ['ICD9_Code', 'CCS_CATEGORY_DESCRIPTION', 'ICD_9_CM_CODE_DESCRIPTION', 'OPTIONAL_CCS_CATEGORY', 'OPTIONAL_CCS_CATEGORY_DESCRIPTION', 'ICD9_DGNS_CD_1']
 joined_df.drop(columns, inplace=True, axis=1)
 joined_df = joined_df.rename(columns={'CCS_CATEGORY': 'ICD9_DGNS_CD_1'})
@@ -54,7 +61,7 @@ df_symp_week['value_dis_null'] = list(zip(df_symp_week.ICD9_DGNS_CD_1))#Converti
 
 df_symp_week.drop(['ADMTNG_ICD9_DGNS_CD','CLM_ADMSN_WEEK','ICD9_DGNS_CD_1'], inplace=True, axis=1)
 
-df_symp_week.to_csv('out_test.csv', sep=',')
+df_symp_week.to_csv('out_test_3cols.csv', sep=',')
 
 test_data = []
 
@@ -63,7 +70,7 @@ for index, row in df_symp_week.iterrows():
     dict_test[row['key_sym_week']] = row['value_dis_null']
     test_data.append(dict_test.copy())
 
-
+print("test data preparation complete")
 
 #END OF TEST DATA PREPARATION
 
@@ -179,6 +186,7 @@ def runApriori(data_iter, minSupport, minConfidence):
                     if confidence >= minConfidence:
                         toRetRules.append(((tuple(element), tuple(remain)),
                                            confidence))
+    print("Yaha Pugyo")
     return toRetItems, toRetRules
 
 
@@ -193,9 +201,9 @@ def printResults(items, rules, filterData=None):
         pre, post = rule
         if (filterData == None):
             print ("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
+
         elif filterData in post:
             print("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
-
 
 def createDictionAssoc(items, rules, filterData=None):
     """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
@@ -208,7 +216,6 @@ def createDictionAssoc(items, rules, filterData=None):
 
     for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
         pre, post = rule
-
         if (len(pre) == 2 and "D_" in str(post) and len(post) == 1):
             print("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
             # print listOfRules[pre]
@@ -218,32 +225,47 @@ def createDictionAssoc(items, rules, filterData=None):
             if pre not in listOfRules:
                 listOfRules[pre] = [[post, dictConfidence[post]]]
             else:
-
                 listOfRules[pre].append([post, dictConfidence[post]])
+
+        # print("Create Diction: ", listOfRules)
     return listOfRules
 
 
 def evaluate(testdata, listOfRules):
     # testdata = [{('W_10', 'S_157'): ('D_2',)}, {('W_10', 'S_157'): 'D_12', }, {('W_10', 'S_156'): 'D_14', }]
-    # print(len(testdata))
+    print("Test Data inside evaluate: ", testdata)
+    print("List of Rules:", listOfRules)
     # listOfRules = {('W_10', 'S_157'): [[('D_127',), 0.8], [('D_2',), 0.2]]}
     df = pd.DataFrame(columns=["symweek", "actual", "predicted"])
     test_counter = 0
 
     while test_counter < len(testdata):
+
         for symptomweek in testdata[test_counter]:
-            if symptomweek in listOfRules:
-                for item in listOfRules[symptomweek]:
+            # print("evaluating: ", test_counter)
+            # print(type(sympto  /mweek ))
+            x = reversed(symptomweek)
+            symptomweekReverse = tuple(x)#Reversed also taken in consideration as, rule [W_1, D_1] <=> [D_1, W_1]
+            actual = testdata[test_counter][symptomweek]
+            if (symptomweek not in listOfRules) and (symptomweekReverse in listOfRules):
+                    symptomweek = symptomweekReverse
+
+
+            if (symptomweek in listOfRules):
+                # print("SymptomWeek inside evaluate: ", symptomweek)#('SymptomWeek inside evaluate: ', ('S_55', 'W_25'))
+                for item in listOfRules[symptomweek]: #('Item', [('D_157',), 1.0])
+                    # print("Item", item)
                     df = df.append({
                         "symweek": symptomweek,
-                        "actual": testdata[test_counter][symptomweek],
+                        "actual": actual,
                         "predicted": item[0]}, ignore_index=True)
             else:  # In case key is not in the predicted class
                 df = df.append({
                     "symweek": symptomweek,
-                    "actual": testdata[test_counter][symptomweek],
+                    "actual": actual,
                     "predicted": 'Null'}, ignore_index=True)
             test_counter += 1
+
     actual = df['actual'].unique().tolist()
     df.to_csv('out_df_value.csv', sep=',')
     # predicted = df['predicted'].unique().tolist()
@@ -251,6 +273,7 @@ def evaluate(testdata, listOfRules):
     trueNegative = 0
     falsePositive = 0
     falseNegative = 0
+    print ("reached here")
     for positive_class in actual:
         counter = 0
         while counter <= len(df.index) - 1:
@@ -294,12 +317,12 @@ if __name__ == "__main__":
     optparser.add_option('-s', '--minSupport',
                          dest='minS',
                          help='minimum support value',
-                         default=0.0000015,
+                         default=0.00015,
                          type='float')
     optparser.add_option('-c', '--minConfidence',
                          dest='minC',
                          help='minimum confidence value',
-                         default=0.0000002,
+                         default=0.00002,
                          type='float')
     optparser.add_option('-y', '--filter',
                          dest='filter',
@@ -321,11 +344,15 @@ if __name__ == "__main__":
     minConfidence = options.minC
     filterData = options.filter
     items, rules = runApriori(inFile, minSupport, minConfidence)
+    # print("Items, Rules: ", items, "and", rules)
+    print("Yeta Pugyo")
     list_of_rules = createDictionAssoc(items, rules,filterData)
+    # print('Tala ko list of rules: ',list_of_rules)
     # evaluate(testdata, listOfRules):
+    print("Aba yeta pugyo")
     evaluate(test_data, list_of_rules)
-    '''if(filterData):
-        printResults(items, rules,filterData)
-    else:
-        printResults(items, rules)'''
+    # # if(filterData):
+    # printResults(items, rules,filterData)
+    # else:
+    #     printResults(items, rules)
 print(datetime.datetime.now())
