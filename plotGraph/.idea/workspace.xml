@@ -51,8 +51,8 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
         <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/sparse/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="249" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="357" selection-end-column="30" />
+            <state relative-caret-position="175">
+              <caret line="250" column="52" lean-forward="true" selection-start-line="250" selection-start-column="52" selection-end-line="250" selection-end-column="52" />
               <folding>
                 <element signature="e#32#63#0" expanded="true" />
               </folding>
@@ -783,8 +783,8 @@
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/sparse/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="249" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="357" selection-end-column="30" />
+        <state relative-caret-position="175">
+          <caret line="250" column="52" lean-forward="true" selection-start-line="250" selection-start-column="52" selection-end-line="250" selection-end-column="52" />
           <folding>
             <element signature="e#32#63#0" expanded="true" />
           </folding>
