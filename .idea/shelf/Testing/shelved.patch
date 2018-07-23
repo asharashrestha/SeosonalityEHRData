@@ -1,0 +1,8 @@
+Index: Phase2/TestForGit.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Phase2/TestForGit.py	(revision )
++++ Phase2/TestForGit.py	(revision )
+@@ -0,0 +1,0 @@
