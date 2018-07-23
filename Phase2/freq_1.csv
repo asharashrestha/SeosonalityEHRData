@@ -1,0 +1,240 @@
+,ICD9_DGNS_CD_1,counts
+0,2ndary malig,488
+1,Abdom hernia,354
+2,Abdomnl pain,235
+3,Ac renl fail,1169
+4,Acq foot def,15
+5,Acut p-h anm,61
+6,Acute CVD,1462
+7,Acute MI,1644
+8,Adjustment disorders,24
+9,Adlt resp fl,1237
+10,Alcohol-related disorders,291
+11,Allergy,17
+12,Amnios dx,4
+13,Anal/rectal,98
+14,Anemia,518
+15,Aneurysm,291
+16,Anxiety disorders,49
+17,Appendicitis,106
+18,Art embolism,82
+19,Asp pneumon,705
+20,Asthma,561
+21,Attention-deficit/conduct/disruptive beha,7
+22,BPH,179
+23,Back problem,1192
+24,Biliary dx,773
+25,Bladder cncr,73
+26,Blindness,9
+27,Bnign ut neo,33
+28,Bone/ct cncr,1
+29,Brain/ns can,48
+30,Breast cancr,113
+31,Breast dx,23
+32,Brnch/lng ca,134
+33,Bronchitis,170
+34,Burns,23
+35,COPD,2070
+36,Cardia arrst,52
+37,Cardiac anom,18
+38,Carditis,161
+39,Cataract,3
+40,Cervix cancr,5
+41,Chest pain,1117
+42,Chr kidney disease,48
+43,Coag/hemr dx,65
+44,Colon cancer,241
+45,Coma/brn dmg,72
+46,Complic devi,1733
+47,Complic proc,1021
+48,Conduction,233
+49,Coron athero,1932
+50,Crush injury,82
+51,Cystic fibro,10
+52,DM in preg,1
+53,Delirium/dementia/amnestic/other cognitiv,566
+54,Developmental disorders,10
+55,DiabMel no c,18
+56,DiabMel w/cm,918
+57,Disorders usually diagnosed in infancy/ch,1
+58,Diverticulos,674
+59,Dizziness,190
+60,Dysrhythmia,2307
+61,Early labor,6
+62,Ectopic preg,2
+63,Encephalitis,171
+64,Endometrios,4
+65,Epilepsy/cnv,401
+66,Esoph cancer,18
+67,Esophgeal dx,270
+68,Exam/eval,1
+69,Eye infectn,25
+70,FUO,109
+71,Fatigue,74
+72,Fem genit ca,24
+73,Fetal distrs,5
+74,Fluid/elc dx,1301
+75,Fx arm,238
+76,Fx hip,1234
+77,Fx leg,393
+78,Fx skull fac,53
+79,GI cong anom,5
+80,GI hemorrhag,969
+81,GI/perit can,18
+82,Gangrene,117
+83,Gasduo ulcer,108
+84,Gastritis,241
+85,Gastroent,272
+86,Gout/ot crys,44
+87,HIV infectn,227
+88,HTN,139
+89,Hd/nck cancr,33
+90,Headache/mig,66
+91,Hemmorhoids,84
+92,Hepatitis,7
+93,Hodgkin-s ds,7
+94,Hrt valve dx,323
+95,Htn complicn,640
+96,Immunity dx,1
+97,Immuniz/scrn,1
+98,Impulse control disorders NEC,8
+99,Inf male gen,34
+100,Infect arth,167
+101,Influenza,75
+102,Int obstruct,433
+103,Intracrn inj,385
+104,Joint injury,33
+105,Late eff CVD,60
+106,Leukemias,80
+107,Long pregncy,1
+108,Lung externl,14
+109,Lymph enlarg,12
+110,Maint chem/r,131
+111,Mal genit ca,2
+112,Malig neopls,11
+113,Malposition,2
+114,Meningitis,61
+115,Menopausl dx,16
+116,Menstrual dx,29
+117,Miscellaneous mental health disorders,30
+118,Mood disorders,1012
+119,Mouth dx,21
+120,Mult myeloma,45
+121,Mycoses,23
+122,Nausea/vomit,86
+123,Neoplsm unsp,104
+124,Nephritis,8
+125,Nerv cong an,1
+126,Non-Hodg lym,82
+127,Non-epith ca,3
+128,Nutrit defic,41
+129,OB-related perin trauma,2
+130,Opn wnd extr,33
+131,Opn wnd head,26
+132,Osteoarthros,2431
+133,Ot acq defor,86
+134,Ot aftercare,31
+135,Ot bnign neo,205
+136,Ot bone dx,127
+137,Ot circul dx,400
+138,Ot compl bir,12
+139,Ot cong anom,27
+140,Ot conn tiss,275
+141,Ot dx bladdr,55
+142,Ot dx kidney,83
+143,Ot dx stomch,178
+144,Ot endo dsor,159
+145,Ot femal gen,59
+146,Ot hematl dx,5
+147,Ot hered CNS,118
+148,Ot infl skin,23
+149,Ot joint dx,98
+150,Ot nutrit dx,200
+151,Ot preg comp,20
+152,Ot primry ca,8
+153,Ot respir ca,6
+154,Ot up rsp in,85
+155,Ot uppr resp,67
+156,Oth CNS infx,44
+157,Oth bact inf,79
+158,Oth fracture,571
+159,Oth heart dx,13
+160,Oth infectns,30
+161,Oth liver dx,219
+162,Oth low resp,319
+163,Oth male gen,18
+164,Oth nerv dx,490
+165,Oth skin dx,17
+166,Oth vein dx,45
+167,Other CVD,63
+168,Other GI dx,402
+169,Other GU dx,105
+170,Other ear dx,11
+171,Other eye dx,16
+172,Other injury,102
+173,Other screen,4
+174,Otitis media,9
+175,Ovarian cyst,21
+176,Ovary cancer,40
+177,PID,18
+178,Pancreas can,49
+179,Pancreas dx,414
+180,Paralysis,11
+181,Parkinson-s,43
+182,Patholog fx,267
+183,Pelvic obstr,2
+184,Perip athero,411
+185,Peritonitis,48
+186,Personality disorders,6
+187,Phlebitis,417
+188,Pleurisy,283
+189,Pneumonia,2949
+190,Poisn nonmed,13
+191,Poisn ot med,154
+192,Poison psych,78
+193,Precere occl,450
+194,Prev c-sectn,7
+195,Prolapse,206
+196,Prostate can,158
+197,Pulm hart dx,425
+198,Rctm/anus ca,91
+199,Rehab,1807
+200,Retinal dx,9
+201,Rheum arth,37
+202,SLE,26
+203,Schizophrenia and other psychotic disorde,956
+204,Screening and history of mental health an,5
+205,Septicemia,77
+206,Sexual Infxs,51
+207,Shock,8
+208,Sickle cell,72
+209,Skin infectn,1043
+210,Skin melanom,3
+211,Spin cor inj,18
+212,Spont abortn,1
+213,Sprain,58
+214,Stomch cancr,19
+215,Substance-related disorders,256
+216,Suicide and intentional self-inflicted in,1
+217,Superfic inj,91
+218,Syncope,715
+219,TIA,535
+220,Teeth dx,20
+221,Testis cancr,1
+222,Thyroid cncr,22
+223,Thyroid dsor,75
+224,Tonsillitis,5
+225,Tuberculosis,717
+226,UTI,1627
+227,Ulcer skin,221
+228,Ulcerat col,85
+229,Umbil cord,2
+230,Unclassified,272
+231,Urin stone,15
+232,Uriny org ca,1
+233,Uterus cancr,78
+234,Varicose vn,7
+235,Viral infect,700
+236,Wht blood dx,113
+237,chf;nonhp,3200
+238,gu cong anom,5
