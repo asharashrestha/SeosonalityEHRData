@@ -9,7 +9,7 @@ df = pd.read_csv('/Users/aashara/Documents/Study/Research Credit/Seasonal_Trends
 
 #selecting only columns we are interested in
 df_selected_cols = df[['DESYNPUF_ID', 'CLM_ADMSN_DT', 'ADMTNG_ICD9_DGNS_CD', 'ICD9_DGNS_CD_1']].copy()
-ccn = pd.read_csv('/Users/aashara/Documents/Study/Research Credit/Seasonal_Trends/Paper 1/icd_ccs.csv',dtype ='str')#ccn data import
+ccn = pd.read_csv('/Users/aashara/Documents/Study/Research Credit/Seasonal_Trends/Paper 1/icd_ccs_No_Dups.csv',dtype ='str')#ccn data import
 
 # df_selected_cols  = df_selected_cols.head()
 
@@ -33,7 +33,6 @@ joined_df = joined_df.rename(columns={'CCS_CATEGORY': 'ICD9_DGNS_CD_1'})
 joined_df['CLM_ADMSN_DT']=pd.to_datetime(joined_df['CLM_ADMSN_DT'], format="%Y%m%d")
 
 # #Extracting week only from CLM_ADMSN_DT and creating new column CLM_ADMSN_WEEK from it
-# joined_df['CLM_ADMSN_WEEK'] = (pd.DatetimeIndex(joined_df['CLM_ADMSN_DT']).year.map(str)) + '_'  + (pd.DatetimeIndex(joined_df['CLM_ADMSN_DT']).week.map(str))
 joined_df['CLM_ADMSN_WEEK'] = pd.DatetimeIndex(joined_df['CLM_ADMSN_DT']).week.map(str)
 
 df_symp_week = joined_df[['ADMTNG_ICD9_DGNS_CD', 'CLM_ADMSN_WEEK','ICD9_DGNS_CD_1']].copy()
