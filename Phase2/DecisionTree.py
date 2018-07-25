@@ -1,15 +1,11 @@
-# from sklearn import tree
-# X = [[0, 0], [1, 1]]
-# Y = [0, 1]
-# clf = tree.DecisionTreeClassifier()
-# clf = clf.fit(X, Y)
-# print(type(X))
-# print(type(Y))
-# print(type(clf))
-
 import pandas as pd
 import datetime as dt
 import numpy as np
+from sklearn.cross_validation import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn import tree
+import graphviz
+
 
 # importing the beneficiaries file
 df_ben = pd.read_csv(
@@ -91,22 +87,21 @@ df = df[df['ICD9_DGNS_CD_1'].isin(
     ['Pneumonia', 'Asthma', 'Viral infect', 'COPD', 'Tuberculosis', 'Oth low resp', 'Bronchitis'])]
 df = df.dropna(how='any', axis=0)
 
-# selecting only object data types
-df = df.select_dtypes(include=['object']).copy()
+
+# Converting Season into numerical data
 cleanup_season = {"Season": {"Summer": 1, "Winter": 2},
             "BENE_SEX_IDENT_CD": {"1": 1, "2": 2}}
 
 df.replace(cleanup_season, inplace=True)
 # creating dummy columns for different admission diagnosis codes
 df = pd.get_dummies(df, columns=["ADMTNG_ICD9_DGNS_CD"])
+print(df.head())
 
 #Decision Tree start
 
-import os
 import subprocess
+from sklearn.metrics import accuracy_score
 
-import pandas as pd
-import numpy as np
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 def encode_target(df, target_column):
@@ -138,9 +133,10 @@ print("* df2.head()", df2[["Target", "ICD9_DGNS_CD_1"]].head(),
 print("* df2.tail()", df2[["Target", "ICD9_DGNS_CD_1"]].tail(),
       sep="\n", end="\n\n")
 print("* targets", targets, sep="\n", end="\n\n")
+df2.to_csv('dtree_temp.csv', sep=',')
 
 df2.drop('ICD9_DGNS_CD_1', inplace=True, axis=1)
-
+df2.to_csv('dtree.csv', sep=',')
 ##Featues
 features = list(df2.columns[:])
 print("* features:", features, sep="\n")
@@ -150,7 +146,9 @@ y = df2["Target"]
 X = df2[features]
 dt = DecisionTreeClassifier(min_samples_split=20, random_state=99)
 # print(df2.head())
-dt.fit(X, y)
+
+
+
 
 #Vizualize the tree
 def visualize_tree(tree, feature_names):
@@ -172,5 +170,47 @@ def visualize_tree(tree, feature_names):
         exit("Could not run dot, ie graphviz, to "
              "produce visualization")
 
-visualize_tree(dt, features)
 
+
+# visualize_tree(dt, features)
+
+#training and testing set
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size = 0.3, random_state = 100)
+# prediction = dt.predict([[1,2,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5]])
+# print("Prediction: ", prediction)
+
+
+
+#Decision Tree with Entropy as criterion
+# clf_entropy = DecisionTreeClassifier(criterion = "entropy", random_state = 100,
+#  max_depth=3, min_samples_leaf=7)
+# clf_entropy.fit(X_train, y_train)
+#
+# y_pred_en = clf_entropy.predict(X_test)
+# print("Accuracy is for criterion as information gain ", accuracy_score(y_test,y_pred_en)*100)
+# print("Confusion Matrix with information gain:\n", confusion_matrix(y_test, y_pred_en))
+#
+
+#Decision Tree with Criterion as Gini Index
+
+clf_gini = DecisionTreeClassifier(criterion = "gini", random_state = 100, max_depth=3)
+clf_gini.fit(X_train, y_train)
+
+
+y_pred = clf_gini.predict(X_test)
+print("Accuracy with gini Index is ", accuracy_score(y_test,y_pred)*100)
+
+print("Confusion Matrix with gini index:\n", confusion_matrix(y_test, y_pred))
+
+# clf_gini.predict_proba(df2[:1, :])
+
+# import graphviz
+# dot_data = tree.export_graphviz(clf_gini, out_file=None)
+# graph = graphviz.Source(dot_data)
+# graph.render("df2")
+# visualize_tree(clf_gini, features)
+
+#Decision Tree Default Criterion
+# dt.fit(X_train, y_train)
+# y_pred = dt.predict(X_test)
+# print("Accuracy is ", accuracy_score(y_test,y_pred)*100)
